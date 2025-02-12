@@ -13,9 +13,10 @@ function generatePassword() {
     };
 
     let password = "";
+    let hasAtSymbol = false;
 
     for (let i = 0; i < length; i++) {
-        const choice = Math.floor(Math.random() * 3);
+        let choice = Math.floor(Math.random() * 4);
 
         if (choice === 0) {
             password += characters.capital.charAt(
@@ -25,11 +26,22 @@ function generatePassword() {
             password += characters.lowercase.charAt(
                 Math.floor(Math.random() * characters.lowercase.length)
             );
-        } else {
+        } else if (choice === 2) {
             password += characters.numbers.charAt(
                 Math.floor(Math.random() * characters.numbers.length)
             );
+        } else {
+            password += "@";
+            hasAtSymbol = true;
         }
+    }
+
+    if (!hasAtSymbol) {
+        const randomIndex = Math.floor(Math.random() * password.length);
+        password =
+            password.substring(0, randomIndex) +
+            "@" +
+            password.substring(randomIndex + 1);
     }
 
     document.getElementById(
