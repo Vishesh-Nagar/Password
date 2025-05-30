@@ -31,17 +31,13 @@ function generatePassword() {
                 Math.floor(Math.random() * characters.numbers.length)
             );
         } else {
-            password += "@";
-            hasAtSymbol = true;
+            if (!hasAtSymbol) {
+                password += "@";
+                hasAtSymbol = true;
+            } else {
+                i--;
+            }
         }
-    }
-
-    if (!hasAtSymbol) {
-        const randomIndex = Math.floor(Math.random() * password.length);
-        password =
-            password.substring(0, randomIndex) +
-            "@" +
-            password.substring(randomIndex + 1);
     }
 
     document.getElementById(
